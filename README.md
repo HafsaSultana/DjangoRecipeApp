@@ -1,0 +1,2 @@
+# DjangoRecipeApp
+Django learning App
