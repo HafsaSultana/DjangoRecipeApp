@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe List</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <h3>{{request.user}}</h3>
+        <a href="{% url 'user-logout' %}">LogOut</a>
+    {% else %}
+         <a href="{% url 'user-login' %}">LogIn</a>
+    {%endif%}
+    <hr>
+    <h1>All Recipe List</h1>
+    <a href="{% url 'recipe-create'%}">Add Recipe</a>
+    <table >
+        <tr>
+            <th>Items</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Created_By</th>
+            <th>Comment</th>
+            <th>Reting</th>
+        </tr>
+        {% for x in Recipes %}
+            <tr>
+                <td>{{x.title}}</td>
+                <td><a href="{% url 'Recipe_Details' x.id %}">View</a></td>
+                {% if request.user == x.user %}
+                    <td><a href="{% url 'recipe-update' x.id %}">Edit</a></td>
+                    <td><a href="{% url 'recipe-delete' x.id %}">Delete</a></td>
+                {% else %}
+                    <td>__</td>
+                    <td>__</td>
+                {% endif %}
+                <td>{{x.user}}</td>
+                {% if request.user != x.user %}
+                    <td><textarea row="4" cols="30">Write Here!</textarea></td>
+                    <td>
+                        <input type="radio" id="1_star" name="rating" value="1">
+                        <label for="1_star">*</label>
+                        <input type="radio" id="2_star" name="rating" value="2">
+                        <label for="2_star">**</label>
+                        <input type="radio" id="3_star" name="rating" value="3">
+                        <label for="3_star">***</label>
+                    </td>
+                {% else %}
+                    <td>__</td>
+                    <td>__</td>
+                {% endif %}
+            </tr>
+        {% empty %}
+        <h3>No items in list</h3>
+        {% endfor %}
+
+    </table>
+
+
+</body>
+</html>
