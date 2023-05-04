@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 # Create your models here.
 
 class RecipeDetails(models.Model):
@@ -11,12 +12,12 @@ class RecipeDetails(models.Model):
     introduction = models.TextField(default='Take a bowl.')
     image = models.ImageField(upload_to='images',null=True,blank=True)
     video = models.FileField(upload_to='videos/', null=True, verbose_name="Video",blank=True)
-    created = models.DateTimeField(auto_now_add=True)
+    createdTime = models.DateTimeField(default=datetime.now(), blank=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ['created']
+        ordering = ['user']
 
 

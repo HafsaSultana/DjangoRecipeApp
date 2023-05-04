@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import Recipe_List,Recipe_Details,Recipe_Create,Recipe_Update,Recipe_Delete,User_Login_View
+from .views import Recipe_List,Recipe_Details,Recipe_Create,Recipe_Update,Recipe_Delete,User_Login_View,User_Register_Page
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('login/',User_Login_View.as_view(), name='user-login'),
     path('logout/', LogoutView.as_view(next_page='user-login'), name='user-logout'),
+    path('register/', User_Register_Page.as_view(), name='register'),
 
     path('', Recipe_List.as_view(), name='Recipe_List'),
     path('recipe/<int:pk>/', Recipe_Details.as_view(), name='Recipe_Details'),

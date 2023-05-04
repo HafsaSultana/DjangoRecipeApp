@@ -2,11 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView, FormView
+
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .models import RecipeDetails
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+#register
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 class User_Login_View(LoginView):
     template_name = 'DjangoRecipeApp/login.html'
@@ -15,6 +20,18 @@ class User_Login_View(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('Recipe_List')
+
+class User_Register_Page(FormView):
+    template_name = 'DjangoRecipeApp/register.html'
+    form_class = UserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('Recipe_List')
+
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request,user)
+        return super(User_Register_Page,self).form_valid(form)
 
 class Recipe_List(LoginRequiredMixin,ListView):
     model = RecipeDetails
@@ -34,12 +51,16 @@ class Recipe_Details(DetailView):
 
 class Recipe_Create(LoginRequiredMixin, CreateView):
     model = RecipeDetails
-    fields = '__all__'
+    fields = ['title','category','description','ingredientList','introduction','image','video','createdTime']
     success_url = reverse_lazy('Recipe_List')
+
+    # def form_valid(self, form):
+    #     form.instance.use = self.request.user
+    #     return super(Recipe_Create,self).form_valid(form)
 
 class Recipe_Update(LoginRequiredMixin, UpdateView):
     model = RecipeDetails
-    fields = '__all__'
+    fields = ['title', 'category', 'description', 'ingredientList', 'introduction', 'image', 'video', 'createdTime']
     success_url = reverse_lazy('Recipe_List')
 
 
