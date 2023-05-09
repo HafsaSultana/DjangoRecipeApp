@@ -3,24 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Recipe List</title>
+
 </head>
 <body>
-    {% if request.user.is_authenticated %}
-        <h3>{{request.user}}</h3>
+    {% extends 'DjangoRecipeApp/main.html' %}
+    {% block content %}
+    <div class="header-bar">
+        {% if request.user.is_authenticated %}
+        <h3>Hello <strong>{{request.user}}</strong></h3>
         <a href="{% url 'user-logout' %}">LogOut</a>
-    {% else %}
-         <a href="{% url 'user-login' %}">LogIn</a>
-    {%endif%}
+        {% else %}
+             <a href="{% url 'user-login' %}">LogIn</a>
+        {%endif%}
+    </div>
+
     <hr>
     <h1>All Recipe List</h1>
-    <a href="{% url 'recipe-create'%}">Add Recipe</a>
+    <button><a href="{% url 'recipe-create'%}" style="text-decoration: none">Add Recipe</a>
+    </button> <br><br>
+
+    <form method="get">
+        <input type="text" name="search-area" value="{{search_input}}">
+        <input type="submit" value="Search">
+
+    </form>
+
     <table >
         <tr>
             <th>Items</th>
             <th>View</th>
             <th>Edit</th>
             <th>Delete</th>
-            <th>Created_By</th>
+            <th>Author</th>
             <th>Comment</th>
             <th>Rating</th>
         </tr>
@@ -37,7 +51,7 @@
                 {% endif %}
                 <td>{{x.user}}</td>
                 {% if request.user != x.user %}
-                    <td><textarea row="4" cols="30">Write Here!</textarea></td>
+                    <td><a href="{% url 'recipes_comment' x.id %}">Comment Here</a></td>
                     <td>
                         <input type="radio" id="1_star" name="rating" value="1">
                         <label for="1_star">*</label>
@@ -61,6 +75,9 @@
 
     </table>
 
+    
+    {% endblock content %}
 
 </body>
 </html>
+

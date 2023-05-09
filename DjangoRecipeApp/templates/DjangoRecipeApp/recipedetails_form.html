@@ -5,9 +5,11 @@
     <title>Form</title>
 </head>
 <body>
-  <h3>Recipe From</h3>
+{% extends 'DjangoRecipeApp/main.html' %}
+    {% block content %}
+    <h3>Recipe From</h3>
 
-  <a href="{% url 'Recipe_List' %}">Go Back</a>
+    <a href="{% url 'Recipe_List' %}">Go Back</a>
 
     <form method="post" action="">
         {% csrf_token %}
@@ -15,8 +17,7 @@
         <input type="submit" value="Submit">
     </form>
 
-
-
+    {% endblock content %}
 
 </body>
 </html>

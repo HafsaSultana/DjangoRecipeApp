@@ -5,8 +5,13 @@
     <title>Recipe Details</title>
 </head>
 <body>
+    {% extends 'DjangoRecipeApp/main.html' %}
+    {% block content %}
+
     <a href="{% url 'Recipe_List' %}">Go Back</a>
 
-    <h1>Recipes: {{Recipe}}</h1>
+    <h1>Recipe: {{Recipe}}</h1>
+
+    {% endblock content %}
 </body>
 </html>

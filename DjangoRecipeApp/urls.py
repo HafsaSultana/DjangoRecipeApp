@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import Recipe_List,Recipe_Details,Recipe_Create,Recipe_Update,Recipe_Delete,User_Login_View,User_Register_Page
+from .views import Recipe_List,Recipe_Details,Recipe_Create,Recipe_Update,Recipe_Delete
+from .views import User_Login_View,User_Register_Page,Recipe_Comment
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -12,5 +13,6 @@ urlpatterns = [
     path('recipe-create/', Recipe_Create.as_view(), name='recipe-create'),
     path('recipe-update/<int:pk>/', Recipe_Update.as_view(), name='recipe-update'),
     path('recipe-delete/<int:pk>/', Recipe_Delete.as_view(), name='recipe-delete'),
+    path('recipe-comment/<int:pk>/', Recipe_Comment.as_view(), name='recipes_comment'),
 
 ]

@@ -5,13 +5,17 @@
     <title>Delete</title>
 </head>
 <body>
-<a href="{% url 'Recipe_List' %}">Go Back</a>
 
-<form method="post" action="">
-    {% csrf_token %}
-    <p>Are you sure to delete this recipe? "{{Recipe}}"</p>
-    <input type="submit" value="Delete">
-</form>
+{% extends 'DjangoRecipeApp/main.html' %}
+    {% block content %}
+    <a href="{% url 'Recipe_List' %}">Go Back</a>
 
+    <form method="post" action="">
+        {% csrf_token %}
+        <p>Are you sure to delete this recipe? "{{Recipe}}"</p>
+        <input type="submit" value="Delete">
+    </form>
+
+    {% endblock content %}
 </body>
 </html>

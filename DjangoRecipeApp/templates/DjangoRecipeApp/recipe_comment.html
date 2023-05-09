@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+{% extends 'DjangoRecipeApp/main.html' %}
+    {% block content %}
+
+    <div class="container">
+        <a href="{% url 'Recipe_List' %}">Go Back</a>
+
+
+        <h1>Comment here for - {{Recipe}}!!!</h1>
+        <form method="post" action="recipedetails_list.html">
+            {% csrf_token %}
+            <textarea name="comment-area" value="" rows="4" cols="60"></textarea>
+            <input type="submit" value="Post">
+        </form>
+    </div>
+    {% endblock content %}
+</body>
+</html>
