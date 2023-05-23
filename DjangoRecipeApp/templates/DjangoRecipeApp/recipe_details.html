@@ -1,16 +1,140 @@
+{% extends 'DjangoRecipeApp/main.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Recipe Details</title>
+    {% load static %}
 </head>
 <body>
-    {% extends 'DjangoRecipeApp/main.html' %}
+
     {% block content %}
 
     <a href="{% url 'Recipe_List' %}">Go Back</a>
+    <div class="container">
+        <h3>Recipe: {{Recipe.title}}</h3>
+        <p><Strong>Author:</Strong> {{Recipe.user}}</p>
+        <p><Strong>Time: </Strong>{{Recipe.createdTime}}</p>
 
-    <h1>Recipe: {{Recipe}}</h1>
+<!--        <p><strong>Avg-Rating:</strong>-->
+<!--            {% if comments %}-->
+<!--                {% with total=0 %}-->
+<!--                    {% with count=0 %}-->
+<!--                        {% for rating in comments %}-->
+<!--                            {% with total=total|add:rating.rating %}-->
+<!--                                {% with count=count|add:1 %}-->
+<!--                                {% endwith %}-->
+<!--                            {% endwith %}-->
+<!--                        {% endfor %}-->
+<!--                        {% if count > 0 %}-->
+<!--                            {{ total|divisibleby:count|floatformat:2 }}-->
+<!--                        {% else %}-->
+<!--                            No ratings and reviews available.-->
+<!--                        {% endif %}-->
+<!--                    {% endwith %}-->
+<!--                {% endwith %}-->
+<!--            {% else %}-->
+<!--                No ratings and reviews available.-->
+<!--            {% endif %}-->
+<!--        </p>-->
+
+
+        <p><strong>Category:</strong>
+            {% for category in categories %}
+                {{ category.name }}
+            {% endfor %}
+        </p>
+        <p><Strong>Hash Tag: </Strong>
+            {% if Recipe.tags.all %}
+                {% for tag in Recipe.tags.all %}
+                    #{{tag}},
+                {% endfor %}
+            {% else %}
+                No tag added!
+            {% endif %}
+        </p>
+        <p><Strong>Description:</Strong>
+            {% if Recipe.description %}
+                {{Recipe.description}}
+            {% else %}
+                 !!
+            {% endif %}
+
+        </p>
+        <p><Strong>IngredientList:</Strong> {{Recipe.ingredientList}}</p>
+        <p><Strong>Introduction: </Strong>{{Recipe.introduction}}</p>
+        <p><Strong>Recipe Image:</Strong></p>
+        <p>
+            {% if Recipe.image %}
+            <img src="{{ Recipe.image.url }}" alt="Recipe Image" width="300">
+            {% else %}
+                No image added!
+            {% endif %}
+            <!--            <img src="{% static './coffee.jpg' %}" alt="Cannot connect">-->
+        </p>
+        <p><Strong>Recipe Video:</Strong><br>
+            {% if Recipe.video %}
+            <video width="500" height="300" controls>
+            <source src="{{ Recipe.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            {% else %}
+                No video added!
+            {% endif %}
+        </p>
+        <br><br>
+        <h3 style="text-align: center; color: #620262">User Review for this Recipe({{Recipe.title}}) !!</h3>
+
+        {% if request.user != Recipe.user %}
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="rate"><Strong>Rating: </Strong>
+
+                <input type="radio" id="10_star" name="rating" value="5" required><label for="10_star" title="5"></label>
+                <input type="radio" id="9_star" name="rating" value="4.5" required><label for="9_star" title="4.5" class="half"></label>
+                <input type="radio" id="8_star" name="rating" value="4" required><label for="8_star" title="4"></label>
+                <input type="radio" id="7_star" name="rating" value="3.5" required><label for="7_star" title="3.5" class="half"></label>
+                <input type="radio" id="6_star" name="rating" value="3" required><label for="6_star" title="3"></label>
+                <input type="radio" id="5_star" name="rating" value="2.5" required><label for="5_star" title="2.5" class="half"></label>
+                <input type="radio" id="4_star" name="rating" value="2" required><label for="4_star" title="2"></label>
+                <input type="radio" id="3_star" name="rating" value="1.5" required><label for="3_star" title="1.5" class="half"></label>
+                <input type="radio" id="2_star" name="rating" value="1" required><label for="2_star" title="1"></label>
+                <input type="radio" id="1_star" name="rating" value="0.5" required><label for="1_star" title="0.5" class="half"></label>
+           </div>
+            <br>
+            <p><Strong>Comment:</Strong><br>
+                <textarea style="margin: 3px" name="review" class="form-control" value="" rows="4" cols="30"></textarea>
+                <input type="submit" class="btn btn-primary" value="Post">
+            </p>
+
+        </form>
+        {% endif %}
+
+        <br>
+    <h4>Ratings and Reviews:</h4>
+    {% if comment %}
+        <ul>
+            {% for x in comment %}
+                <li>
+                    <p><strong>User:</strong> {{ x.user }}</p>
+                    <p>{{ x.created_review }}</p>
+                    <p><strong>Rating:</strong> {{ x.rating }}</p>
+                    <p><strong>Review:</strong> {{ x.review }}</p>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No ratings and reviews available.</p>
+    {% endif %}
+
+
+
+    </div>
+
+
 
     {% endblock content %}
 </body>

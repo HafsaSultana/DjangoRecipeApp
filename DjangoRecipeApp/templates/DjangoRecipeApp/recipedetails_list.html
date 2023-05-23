@@ -18,25 +18,50 @@
     </div>
 
     <hr>
-    <h1>All Recipe List</h1>
-    <button><a href="{% url 'recipe-create'%}" style="text-decoration: none">Add Recipe</a>
-    </button> <br><br>
+    <div  style="text-align: center">
+        <h1  >All Recipe List</h1>
+        <button><a href="{% url 'recipe-create'%}" style="text-decoration: none">Add Recipe</a>
+        </button> <br><br>
 
-    <form method="get">
-        <input type="text" name="search-area" value="{{search_input}}">
-        <input type="submit" value="Search">
+        <form method="get" >
+            <p>
+                <select name="search-category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
 
-    </form>
+            <input type="submit" value="Search by Category">
+            </p>
 
-    <table >
+            <p>
+                <select name="search-tag">
+                    <option value="">All Tag</option>
+                    {% for tag in tags.all %}
+                        <option value="{{ tag.name }}">{{ tag.name }}</option>
+                    {% endfor %}
+                </select>
+
+            <input type="submit" value="Search by Tag">
+            </p>
+
+            <input type="text" name="search-area" value="{{search_input}}">
+            <input type="submit" value="Search by Item">
+
+
+        </form>
+    </div>
+    <br>
+
+     {% if Recipes %}
+    <table class="table table-bordered text-center ">
         <tr>
-            <th>Items</th>
+            <th>Recipe Items</th>
             <th>View</th>
             <th>Edit</th>
             <th>Delete</th>
             <th>Author</th>
-            <th>Comment</th>
-            <th>Rating</th>
         </tr>
         {% for x in Recipes %}
             <tr>
@@ -50,32 +75,48 @@
                     <td>__</td>
                 {% endif %}
                 <td>{{x.user}}</td>
-                {% if request.user != x.user %}
-                    <td><a href="{% url 'recipes_comment' x.id %}">Comment Here</a></td>
-                    <td>
-                        <input type="radio" id="1_star" name="rating" value="1">
-                        <label for="1_star">*</label>
-                        <input type="radio" id="2_star" name="rating" value="2">
-                        <label for="2_star">**</label>
-                        <input type="radio" id="3_star" name="rating" value="3">
-                        <label for="3_star">***</label>
-<!--                        <input type="radio" id="4_star" name="rating" value="4">-->
-<!--                        <label for="4_star">****</label>-->
-<!--                        <input type="radio" id="5_star" name="rating" value="5">-->
-<!--                        <label for="5_star">*****</label>-->
-                    </td>
-                {% else %}
-                    <td>__</td>
-                    <td>__</td>
-                {% endif %}
             </tr>
         {% empty %}
         <h3>No items in list</h3>
         {% endfor %}
 
     </table>
+    {% else %}
+    <h3>No items in list</h3>
+    {% endif %}
+    <p>
+        Page{{page_obj.number}} of {{page_obj.paginator.num_pages}}
+    </p>
 
-    
+    <nav>
+        {% if page_obj.has_other_pages %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-outline-secondary mb-4" style="border-radius: 1px; border: 1px solid #d3d3d3">First</a>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}"></a> <i class="fas fa-angle-double-left"></i> </li>
+            {% else %}
+            <li class="page-item disable"></li>
+            {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active"><span class="page-link">{{i}}<span class="sr-only"></span></span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}"><i class="fas fa-angle-double-right"></i></a> </li>
+            <a href="?page={{page_obj.paginator.num_pages}}" class="btn btn-outline-secondary mb-4" style="border-radius: 1px; border: 1px solid #d3d3d3">Last</a>
+            {% else %}
+            <li class="page-item disable"></li>
+            {% endif %}
+
+        </ul>
+        {% endif %}
+    </nav>
+
     {% endblock content %}
 
 </body>

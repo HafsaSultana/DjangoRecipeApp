@@ -9,13 +9,13 @@
 {% extends 'DjangoRecipeApp/main.html' %}
     {% block content %}
     <a href="{% url 'Recipe_List' %}">Go Back</a>
-
+    <div class="container" style="text-align: center">
     <form method="post" action="">
         {% csrf_token %}
-        <p>Are you sure to delete this recipe? "{{Recipe}}"</p>
-        <input type="submit" value="Delete">
+        <h6>Are you sure to delete this recipe "{{Recipe}}" ?</h6><br>
+        <input type="submit" class="btn btn-primary" value="Delete">
     </form>
-
+    </div>
     {% endblock content %}
 </body>
 </html>

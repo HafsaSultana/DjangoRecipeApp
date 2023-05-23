@@ -10,11 +10,10 @@
     <h3>Recipe From</h3>
 
     <a href="{% url 'Recipe_List' %}">Go Back</a>
-
-    <form method="post" action="">
+<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn btn-primary" value="Submit">
     </form>
 
     {% endblock content %}
