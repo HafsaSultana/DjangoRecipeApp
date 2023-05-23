@@ -1,5 +1,6 @@
-{% extends 'DjangoRecipeApp/main.html' %}
 <!DOCTYPE html>
+{% extends 'DjangoRecipeApp/main.html' %}
+{% load social_share %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -111,8 +112,12 @@
 
         </form>
         {% endif %}
-
         <br>
+        <h4>Share on FaceBook and Twitter :</h4>
+            {% post_to_facebook "{{Recipe.title}} Check it!" object_or_url "Post to FaceBook" %}
+            {% post_to_twitter "{{Recipe.title}} Check it out!" object_or_url "Post to Twitter" %}
+            {% send_email Recipe.title "{{Recipe.title}} Check it out!" object_or_url "Share via email" %}
+        </p>
     <h4>Ratings and Reviews:</h4>
     {% if comment %}
         <ul>

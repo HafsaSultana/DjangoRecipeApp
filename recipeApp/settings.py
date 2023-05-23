@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'taggit',
     'DjangoRecipeApp.apps.DjangorecipeappConfig',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
