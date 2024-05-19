@@ -67,7 +67,7 @@ You can view a demo of the app below:
 **8.** Open your browser and visit http://127.0.0.1:8000 to access the application.
 
 ## Project Structure
-**recipes:** Contains models, views, and templates for recipe management.
-**users:** Manages user registration, login, and profiles.
-**templates:** Shared templates for rendering HTML pages.
-**static:** Static files such as CSS, JavaScript, and images.
+-**recipes:** Contains models, views, and templates for recipe management.
+-**users:** Manages user registration, login, and profiles.
+-**templates:** Shared templates for rendering HTML pages.
+-**static:** Static files such as CSS, JavaScript, and images.
