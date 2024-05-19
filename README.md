@@ -23,6 +23,13 @@ This repository contains the source code for the Django Recipe App, a web applic
 - **Advanced Search**: Provide advanced search options, allowing users to search for recipes based on criteria like dietary restrictions or cooking time.
 - **Video Tutorials**: Allow users to upload and share video tutorials of their recipes.
 
+## Demo Video
+
+You can view a demo of the app below:
+
+[![Django Recipe App Demo] (https://github.com/HafsaSultana/Django_Recipe_App/blob/main/Django_Recipe%20App_23_05_2023.mp4)]
+
+
 ## Getting Started
 
 ### Prerequisites
