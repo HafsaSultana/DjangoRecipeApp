@@ -53,8 +53,8 @@ You can view a demo of the app below:
   pip install -r requirements.txt
 --->
 
-## 4. Configure the PostgreSQL database (optional for production):
-  Create a PostgreSQL database and user.
+## 4. Configure the database (optional for production):
+  Create a database and user.
   Update the DATABASES setting in settings.py with your database credentials.
 
 ## 5. Apply migrations:
