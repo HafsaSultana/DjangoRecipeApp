@@ -41,15 +41,17 @@ You can view a demo of the app below:
 ### Installation
 
 ## 1. Clone the repository:
-   git clone https://github.com/your-username/django-recipe-app.git
-   cd django-recipe
+   git clone https://github.com/HafsaSultana/Django_Recipe_App.git
+   cd Django_Recipe_App
 
 ## 2. Create a virtual environment and activate it:
   venv venv
   source venv/bin/activate
 
+<!---  
 ## 3. Install the required dependencies:
   pip install -r requirements.txt
+--->
 
 ## 4. Configure the PostgreSQL database (optional for production):
   Create a PostgreSQL database and user.
